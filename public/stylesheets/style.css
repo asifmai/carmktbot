@@ -1,0 +1,11 @@
+a {
+  color: #00B7FF;
+}
+
+.alert.alert-primary {
+  display: none;
+}
+
+.fa.fa-spinner.fa-pulse {
+  display: none;
+}

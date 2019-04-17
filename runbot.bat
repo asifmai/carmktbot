@@ -1,0 +1,1 @@
+node "C:\bot\bin\www"

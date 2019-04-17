@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <html lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col text-center my-4">
+        <h1 class="display-4"><%= title %></h1>
+        <p class="lead">Welcome to <%= title %></p>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <span class="alertmessage"></span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Name<span class="text-danger">*</span></label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="" aria-describedby="helpId"
+              required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Email<span class="text-danger">*</span></label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="" aria-describedby="helpId"
+              required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Telephone Number</label>
+            <input type="text" name="telephone" id="telephone" class="form-control" placeholder=""
+              aria-describedby="helpId">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Message<span class="text-danger">*</span></label>
+            <textarea class="form-control" name="message" id="message" rows="4" required></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="">URL<span class="text-danger">*</span></label>
+            <input type="text" name="url" id="url" class="form-control" placeholder="" aria-describedby="helpId">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col text-center">
+          <button class="btn btn-primary">
+            <i class="fa fa-spinner fa-pulse"></i>
+            <span class="buttontext">Submit</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col text-right">
+          <p class="small mb-0 text-muted">For support</p>
+          <p class="small mb-0 text-muted">Skype: asifmai</p>
+          <p class="small mb-0 text-muted">
+            Email: 
+            <a href="mailto:asifmai@hotmail.com">
+              asifmai@hotmail.com
+            </a>
+          </p>
+        </div>
+      </div>
+  </div>
+
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+
+  <script>
+    $('.btn.btn-primary').click(function (e) { 
+      e.preventDefault();
+      var data = {
+        name: $('#name').val(),
+        email: $('#email').val(),
+        telephone: $('#telephone').val(),
+        message: $('#message').val(),
+        url: $('#url').val()
+      }
+
+      var errors = ""
+
+      if (data.name == "" || data.email == "" || data.message == "" || data.url == "") errors = "Please Fill in All required fields"
+
+      if (errors == "") {
+        $('.fa.fa-spinner.fa-pulse').css('display', 'inline-block');
+        $('.buttontext').text('Submitting ')
+        $.ajax({
+          type: "POST",
+          url: "/",
+          data: data,
+          dataType: "JSON",
+          success: function (response) {
+            $('.fa.fa-spinner.fa-pulse').css('display', 'none');
+            $('.buttontext').text('Submit ')
+            console.log('done')
+          }
+        });
+      } else {
+        $('.alertmessage').text(errors);
+        $('.alert.alert-primary').css('display', 'block');
+      }
+    });
+  </script>
+</body>
+
+</html>
